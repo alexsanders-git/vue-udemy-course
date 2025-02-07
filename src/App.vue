@@ -1,10 +1,9 @@
 <script setup lang="ts">
+import ProjectOne from '@/components/ProjectOne.vue';
 </script>
 
 <template>
-<h1>Hello World!</h1>
+  <ProjectOne />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
