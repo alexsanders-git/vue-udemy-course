@@ -14,6 +14,7 @@ const rightAnswer = computed<string>(() => answers[current.value]);
 const isDone = computed<boolean>(() => questions.length === current.value);
 
 const check = (): void => {
+  console.log(isDone.value);
   if (answer.value === rightAnswer.value) {
     score.value++;
   }
@@ -27,25 +28,53 @@ const check = (): void => {
 };
 
 const reset = (): void => {
+  score.value = 0;
   current.value = 0;
 };
 
-const interval: number = setInterval(check, 5000);
+const getEmoji = (score: number): string => {
+  switch (score) {
+    case 0:
+    case 1:
+      return '😒';
+    case 2:
+      return '😀';
+    case 3:
+      return '😎';
+    default:
+      return '';
+  }
+};
+
+const interval: number = setInterval(check, 4000);
 </script>
 
 <template>
-  <div class="wrapper">
-    <div>
-      {{ isDone ? `Your score: ${score}` : 'Next question' }}
-    </div>
-    <div v-if="question">
-      {{ question }}
-    </div>
-    <div>
-      <input v-model="answer" />
-    </div>
-    <div>
-      <button @click="reset">Reset</button>
+  <div class="container mx-auto p-5">
+    <div class="flex items-center justify-center h-screen">
+      <div class="w-full max-w-xl p-5 text-center shadow-lg">
+        <h1 class="text-4xl mb-4">
+          {{ isDone ? `Your score: ${score} ${getEmoji(score)}` : 'Next question' }}
+        </h1>
+
+        <p class="text-3xl mb-4" v-if="question">
+          {{ question }}
+        </p>
+
+        <div class="flex flex-col gap-4">
+          <input
+            class="p-2 border border-slate-300 focus:border-slate-400 outline-none rounded-md"
+            v-model="answer"
+          />
+
+          <button
+            class="w-fit mx-auto py-2 px-6 font-medium text-white bg-violet-500 hover:bg-violet-600 rounded-md cursor-pointer"
+            @click="reset"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
