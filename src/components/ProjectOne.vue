@@ -14,7 +14,6 @@ const rightAnswer = computed<string>(() => answers[current.value]);
 const isDone = computed<boolean>(() => questions.length === current.value);
 
 const check = (): void => {
-  console.log(isDone.value);
   if (answer.value === rightAnswer.value) {
     score.value++;
   }
@@ -30,6 +29,10 @@ const check = (): void => {
 const reset = (): void => {
   score.value = 0;
   current.value = 0;
+  answer.value = '';
+
+  clearInterval(interval);
+  interval = setInterval(check, 4000);
 };
 
 const getEmoji = (score: number): string => {
@@ -46,7 +49,7 @@ const getEmoji = (score: number): string => {
   }
 };
 
-const interval: number = setInterval(check, 4000);
+let interval: number = setInterval(check, 4000);
 </script>
 
 <template>
