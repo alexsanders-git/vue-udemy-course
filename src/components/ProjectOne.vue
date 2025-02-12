@@ -54,7 +54,7 @@ let interval: number = setInterval(check, 4000);
 
 <template>
   <div class="container mx-auto p-5">
-    <div class="flex items-center justify-center h-screen">
+    <div class="flex items-center justify-center min-h-screen">
       <div class="w-full max-w-xl p-5 text-center shadow-lg">
         <h1 class="text-4xl mb-4">
           {{ isDone ? `Your score: ${score} ${getEmoji(score)}` : 'Next question' }}
