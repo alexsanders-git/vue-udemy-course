@@ -25,7 +25,6 @@ const addPhoto = () => {
 };
 
 const removePhoto = (id: number) => {
-  console.log(id);
   photos.value = photos.value.filter((p) => p.id !== id);
 };
 
