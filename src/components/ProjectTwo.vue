@@ -13,7 +13,7 @@ const newPhotoURL = ref('');
 const addPhoto = () => {
   if (newPhotoURL.value !== '') {
     const photo: IPhoto = {
-      id: getMilliseconds(),
+      id: Date.now(),
       url: newPhotoURL.value,
       isFavorite: false,
     };
@@ -24,13 +24,13 @@ const addPhoto = () => {
   }
 };
 
-const toggleFavorite = () => {
-  console.log('toggleFavorite');
+const removePhoto = (id: number) => {
+  console.log(id);
+  photos.value = photos.value.filter((p) => p.id !== id);
 };
 
-const getMilliseconds = (): number => {
-  const currentDate = new Date();
-  return currentDate.getTime();
+const toggleFavorite = (photo: IPhoto) => {
+  photo.isFavorite = !photo.isFavorite;
 };
 </script>
 
@@ -57,9 +57,21 @@ const getMilliseconds = (): number => {
           class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
           v-if="photos.length"
         >
-          <div class="relative w-full h-[200px] p-1 border" v-for="photo in photos" :key="photo.id">
+          <div
+            class="relative w-full h-[200px] p-1 border"
+            v-for="photo in photos"
+            :key="photo.id"
+            @click="removePhoto(photo.id)"
+          >
             <img class="w-full h-full object-cover" :src="photo.url" />
-            <button class="absolute bottom-2 right-4 text-xl cursor-pointer text-white">★</button>
+
+            <button
+              class="absolute bottom-2 right-4 text-2xl cursor-pointer"
+              :class="{ 'text-orange-600': photo.isFavorite, 'text-white': !photo.isFavorite }"
+              @click.stop="toggleFavorite(photo)"
+            >
+              ★
+            </button>
           </div>
         </div>
 
