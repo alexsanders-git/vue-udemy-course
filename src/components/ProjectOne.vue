@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const questions: string[] = ['How match is 2+2', 'How match is 3*5+1', 'What is the rest from 3/1'];
 
@@ -8,6 +8,7 @@ const answers: string[] = ['4', '16', '1'];
 const score = ref<number>(0);
 const current = ref<number>(0);
 const answer = ref<string>('');
+const answerInput = ref<HTMLInputElement | null>(null);
 
 const question = computed<string>(() => questions[current.value]);
 const rightAnswer = computed<string>(() => answers[current.value]);
@@ -33,6 +34,8 @@ const reset = (): void => {
 
   clearInterval(interval);
   interval = setInterval(check, 4000);
+
+  answerInput.value?.focus();
 };
 
 const getEmoji = (score: number): string => {
@@ -50,6 +53,10 @@ const getEmoji = (score: number): string => {
 };
 
 let interval: number = setInterval(check, 4000);
+
+onMounted(() => {
+  answerInput.value?.focus();
+});
 </script>
 
 <template>
@@ -67,6 +74,7 @@ let interval: number = setInterval(check, 4000);
         <div class="flex flex-col gap-4">
           <input
             class="p-2 border border-slate-300 focus:border-slate-400 outline-none rounded-md"
+            ref="answerInput"
             v-model="answer"
           />
 
