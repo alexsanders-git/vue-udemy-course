@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 interface IPhoto {
   id: number;
@@ -7,7 +7,7 @@ interface IPhoto {
   isFavorite: boolean;
 }
 
-const photos = ref<IPhoto[]>([]);
+const photos = ref<IPhoto[]>(JSON.parse(localStorage.getItem('photos') ?? '[]'));
 const newPhotoURL = ref('');
 
 const addPhoto = () => {
@@ -31,6 +31,14 @@ const removePhoto = (id: number) => {
 const toggleFavorite = (photo: IPhoto) => {
   photo.isFavorite = !photo.isFavorite;
 };
+
+watch(
+  photos,
+  () => {
+    localStorage.setItem('photos', JSON.stringify(photos.value));
+  },
+  { deep: true },
+);
 </script>
 
 <template>
