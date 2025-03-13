@@ -22,7 +22,7 @@ defineEmits(['register']);
       <p>{{ description }}</p>
 
       <div class="flex justify-end mt-4">
-        <AppButton class="text-sm" @click="$emit('register')"> Register </AppButton>
+        <AppButton class="text-sm" @click="$emit('register')">Register</AppButton>
       </div>
     </template>
   </AppCard>
