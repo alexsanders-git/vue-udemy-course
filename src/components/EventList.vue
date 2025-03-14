@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import ErrorCard from '@/components/ErrorCard.vue';
 import SkeletonEventCard from '@/components/SkeletonEventCard.vue';
 import EventCard from '@/components/EventCard.vue';
+import useBookings from '@/composables/useBookings.ts';
 import type { IEvents } from '@/types.ts';
-import AppButton from '@/components/AppButton.vue';
 
-defineEmits(['register']);
+const { handleBookings } = useBookings();
 
 const events = ref<IEvents[]>([]);
 const loading = ref<boolean>(false);
@@ -35,13 +36,7 @@ onMounted(() => fetchEvents());
 
 <template>
   <template v-if="error">
-    <div
-      class="flex flex-col items-center space-y-4 p-4 border border-gray-200 bg-white rounded-md"
-    >
-      <span class="text-lg text-red-500">{{ error }}</span>
-
-      <AppButton class="text-sm" variant="danger" @click="fetchEvents">Retry now</AppButton>
-    </div>
+    <ErrorCard :retry="fetchEvents">{{ error }}</ErrorCard>
   </template>
 
   <template v-else>
@@ -58,7 +53,7 @@ onMounted(() => fetchEvents());
             :title="event.title"
             :date="event.date"
             :description="event.description"
-            @register="$emit('register', event)"
+            @register="handleBookings(event)"
           />
         </template>
 
