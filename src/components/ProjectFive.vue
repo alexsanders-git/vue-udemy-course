@@ -5,6 +5,7 @@ import FadeTransition from '@/components/project-five/FadeTransition.vue';
 import GeneralSettings from '@/components/project-five/GeneralSettings.vue';
 import NotificationsSettings from '@/components/project-five/NotificationsSettings.vue';
 import PrivacySettings from '@/components/project-five/PrivacySettings.vue';
+import NotificationsList from '@/components/project-five/NotificationsList.vue';
 import type { ITab, TabKey } from '@/types.ts';
 
 const tabs: ITab[] = [
@@ -43,7 +44,11 @@ const currentTabComponent = computed(
     </nav>
 
     <FadeTransition>
-      <component :is="currentTabComponent" />
+      <KeepAlive>
+        <component :is="currentTabComponent" />
+      </KeepAlive>
     </FadeTransition>
+
+    <NotificationsList />
   </main>
 </template>
