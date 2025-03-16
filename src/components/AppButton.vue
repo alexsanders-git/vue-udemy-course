@@ -3,6 +3,10 @@ interface IProps {
   variant: 'primary' | 'danger';
 }
 
+interface IEmits {
+  click: [];
+}
+
 const props = withDefaults(defineProps<IProps>(), {
   variant: 'primary',
 });
@@ -12,7 +16,7 @@ const variants = {
   danger: 'text-white bg-red-500 hover:bg-red-600',
 };
 
-defineEmits(['click']);
+defineEmits<IEmits>();
 </script>
 
 <template>

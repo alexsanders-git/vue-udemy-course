@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import EventList from '@/components/EventList.vue';
-import BookingList from '@/components/BookingList.vue';
+import EventList from '@/components/project-four/EventList.vue';
+import BookingList from '@/components/project-four/BookingList.vue';
 </script>
 
 <template>

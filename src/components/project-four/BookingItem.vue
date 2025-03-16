@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { LoaderCircle, Check } from 'lucide-vue-next';
-import AppCard from '@/components/AppCard.vue';
+import AppCard from '@/components/project-four/AppCard.vue';
 import AppButton from '@/components/AppButton.vue';
 import { computed } from 'vue';
 
@@ -9,12 +9,16 @@ interface IProps {
   status: 'pending' | 'confirmed';
 }
 
+interface IEmits {
+  cancel: [];
+}
+
 const props = defineProps<IProps>();
 
 const pending = computed(() => props.status === 'pending');
 const icon = computed(() => (pending.value ? LoaderCircle : Check));
 
-defineEmits(['cancel']);
+defineEmits<IEmits>();
 </script>
 
 <template>

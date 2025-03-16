@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue';
-import AppCard from '@/components/AppCard.vue';
+import AppCard from '@/components/project-four/AppCard.vue';
 
 interface IProps {
   title: string;
@@ -8,8 +8,12 @@ interface IProps {
   description: string;
 }
 
+interface IEmits {
+  register: [];
+}
+
 defineProps<IProps>();
-defineEmits(['register']);
+defineEmits<IEmits>();
 </script>
 
 <template>

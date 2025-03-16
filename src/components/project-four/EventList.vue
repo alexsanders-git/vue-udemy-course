@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import ErrorCard from '@/components/ErrorCard.vue';
-import SkeletonEventCard from '@/components/SkeletonEventCard.vue';
-import EventCard from '@/components/EventCard.vue';
+import ErrorCard from '@/components/project-four/ErrorCard.vue';
+import SkeletonEventCard from '@/components/project-four/SkeletonEventCard.vue';
+import EventCard from '@/components/project-four/EventCard.vue';
 import useBookings from '@/composables/useBookings.ts';
 import type { IEvents } from '@/types.ts';
 
