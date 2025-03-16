@@ -10,8 +10,8 @@ import ProjectFive from '@/components/ProjectFive.vue';
   <!--  <ProjectOne />-->
   <!--  <ProjectTwo />-->
   <!--  <ProjectThree />-->
-  <ProjectFour />
-  <!--  <ProjectFive />-->
+  <!--  <ProjectFour />-->
+  <ProjectFive />
 </template>
 
 <style scoped></style>
