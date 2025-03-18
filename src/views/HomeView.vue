@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { computed, ref } from 'vue';
+import { usePostsStore } from '@/stores/posts.ts';
+import PostList from '@/components/PostList.vue';
+
+const store = usePostsStore();
+
+const searchQuery = ref<string>('');
+
+const searchPosts = computed(() => store.searchPosts(searchQuery.value));
 </script>
 
 <template>
   <main>
-    <h1>Home</h1>
+    <h1>Posts</h1>
 
-    <nav>
-      <ul>
-        <li>
-          <RouterLink :to="{ name: 'post', params: { id: 1 } }">Post 1</RouterLink>
-        </li>
-        <li>
-          <RouterLink :to="{ name: 'post', params: { id: 2 } }">Post 2</RouterLink>
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <input type="text" v-model="searchQuery" placeholder="Searh..." />
+    </div>
+
+    <PostList :posts="searchPosts" />
   </main>
 </template>
