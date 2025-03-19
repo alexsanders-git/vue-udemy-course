@@ -6,7 +6,7 @@ const store = usePostsStore();
 </script>
 
 <template>
-  <h1>Favorite Posts</h1>
+  <h1 class="mb-4 text-2xl text-indigo-600 font-bold">Favorite Posts</h1>
 
   <PostList :posts="store.favoritePosts" />
 </template>

@@ -11,13 +11,17 @@ const searchPosts = computed(() => store.searchPosts(searchQuery.value));
 </script>
 
 <template>
-  <main>
-    <h1>Posts</h1>
+  <div>
+    <h1 class="mb-4 text-2xl text-indigo-600 font-bold">Posts</h1>
 
     <div>
-      <input type="text" v-model="searchQuery" placeholder="Searh..." />
+      <input
+        class="w-full mb-4 p-2 bg-white border border-indigo-200 focus:border-indigo-400 focus:outline-none rounded"
+        type="text"
+        v-model="searchQuery"
+        placeholder="Search..." />
     </div>
 
     <PostList :posts="searchPosts" />
-  </main>
+  </div>
 </template>

@@ -13,12 +13,15 @@ defineProps<IProps>();
   <div>
     <nav v-if="posts.length > 0">
       <ul>
-        <li v-for="post in posts" :key="post.id">
-          <RouterLink :to="{ name: 'post', params: { id: post.id } }">{{ post.name }}</RouterLink>
+        <li v-for="post in posts" :key="post.id" class="mb-2">
+          <RouterLink :to="{ name: 'post', params: { id: post.id } }"
+                      class="text-indigo-800 hover:underline">
+            {{ post.name }}
+          </RouterLink>
         </li>
       </ul>
     </nav>
 
-    <div v-else>No posts found!</div>
+    <div v-else class="text-indigo-500">No posts found!</div>
   </div>
 </template>
