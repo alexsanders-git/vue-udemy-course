@@ -4,6 +4,7 @@ import ProjectTwo from '@/components/ProjectTwo.vue';
 import ProjectThree from '@/components/ProjectThree.vue';
 import ProjectFour from '@/components/ProjectFour.vue';
 import ProjectFive from '@/components/ProjectFive.vue';
+import ProjectSeven from '@/components/ProjectSeven.vue';
 </script>
 
 <template>
@@ -11,7 +12,6 @@ import ProjectFive from '@/components/ProjectFive.vue';
   <!--  <ProjectTwo />-->
   <!--  <ProjectThree />-->
   <!--  <ProjectFour />-->
-  <ProjectFive />
+  <!--  <ProjectFive />-->
+  <ProjectSeven />
 </template>
-
-<style scoped></style>

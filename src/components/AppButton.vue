@@ -8,12 +8,12 @@ interface IEmits {
 }
 
 const props = withDefaults(defineProps<IProps>(), {
-  variant: 'primary',
+  variant: 'primary'
 });
 
 const variants = {
   primary: 'text-white bg-violet-500 hover:bg-violet-600',
-  danger: 'text-white bg-red-500 hover:bg-red-600',
+  danger: 'text-white bg-red-500 hover:bg-red-600'
 };
 
 defineEmits<IEmits>();
@@ -21,7 +21,7 @@ defineEmits<IEmits>();
 
 <template>
   <button
-    :class="['w-fit py-2 px-6 font-medium rounded-md cursor-pointer', variants[props.variant]]"
+    :class="['w-fit py-2 px-6 font-medium rounded-md transition cursor-pointer', variants[props.variant]]"
     @click="$emit('click')"
   >
     <slot></slot>
