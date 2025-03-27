@@ -1,23 +1,46 @@
 <script setup lang="ts">
+import { nextTick, ref, watch } from 'vue';
+import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
 import AppButton from '@/components/AppButton.vue';
-import { ref, watch } from 'vue';
+import type { ICard } from '@/types.ts';
 
 interface IProps {
   isOpen: boolean;
+  card: ICard | null;
+  mode: 'add' | 'edit';
 }
 
 interface IEmits {
   close: [];
+  save: [card: ICard];
 }
 
 const titleInput = ref<HTMLInputElement | null>(null);
+const modalElement = ref<HTMLDivElement | null>(null);
+const localCard = ref<ICard>({
+  id: 0, title: '', description: ''
+});
+
+const { activate, deactivate } = useFocusTrap(modalElement);
 
 const props = defineProps<IProps>();
-defineEmits<IEmits>();
+const emit = defineEmits<IEmits>();
 
-watch(() => props.isOpen, (isOpen) => {
+watch(() => props.card, (newCard) => {
+  if (newCard) {
+    localCard.value = { ...newCard };
+  } else {
+    localCard.value = { id: 0, title: '', description: '' };
+  }
+}, { immediate: true });
+
+watch(() => props.isOpen, async (isOpen) => {
   if (isOpen) {
-    setTimeout(() => titleInput.value?.focus(), 0);
+    await nextTick();
+    activate();
+    titleInput.value?.focus();
+  } else {
+    deactivate();
   }
 });
 </script>
@@ -25,15 +48,20 @@ watch(() => props.isOpen, (isOpen) => {
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 flex items-center justify-center bg-black/50"
+    ref="modalElement"
+    class="fixed inset-0 flex items-center justify-center bg-black/50 cursor-pointer"
     role="dialog"
     aria-label="true"
-    @keydown.esc="$emit('close')"
+    @click.self="emit('close')"
+    @keydown.esc="emit('close')"
   >
     <div class="w-full max-w-md p-5 bg-white rounded">
-      <h2 class="mb-4 font-bold text-xl">Add New Card</h2>
+      <h2 class="mb-4 font-bold text-xl">
+        {{ mode === 'add' ? 'Add New Card' : 'Edit Card' }}
+      </h2>
 
       <input
+        v-model="localCard.title"
         ref="titleInput"
         class="mb-4"
         type="text"
@@ -41,12 +69,18 @@ watch(() => props.isOpen, (isOpen) => {
         aria-label="Card Title"
       />
 
-      <textarea class="mb-4" placeholder="Card Description"
-                aria-label="Card Description"></textarea>
+      <textarea
+        v-model="localCard.description"
+        class="mb-4"
+        placeholder="Card Description"
+        aria-label="Card Description"
+      ></textarea>
 
       <div class="flex justify-end gap-2">
-        <AppButton @click="$emit('close')">Save</AppButton>
-        <AppButton variant="danger" @click="$emit('close')">Cancel</AppButton>
+        <AppButton @click="emit('save', localCard)">
+          {{ mode === 'add' ? 'Add' : 'Save' }}
+        </AppButton>
+        <AppButton variant="danger" @click="emit('close')">Cancel</AppButton>
       </div>
     </div>
   </div>
